@@ -1,0 +1,29 @@
+{
+    "formElement": [
+        {
+            "name": "name",
+            "placeholder": "Enter your name",
+            "type": "text"
+        },
+        {
+            "name": "email",
+            "placeholder": "Enter your email",
+            "type": "email"
+        },
+        {
+            "name": "institution",
+            "placeholder": "Enter your institution",
+            "type": "text"
+        },
+        {
+            "name": "password",
+            "placeholder": "Set password",
+            "type": "password"
+        },
+        {
+            "name": "re-password",
+            "placeholder": "Re renter the password",
+            "type": "password"
+        }
+    ]
+}
