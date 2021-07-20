@@ -7,31 +7,13 @@
     margin: auto;
     flex-direction: column-reverse;
 
-    &__tagline {
-        width: 60%;
-
-         &__text > h1 {
-             font-size: 35px;
-         }
-
-         &__text > p {
-             font-size: 20px;
-             padding-bottom: 30px;
-         }
-
-         &__text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-         }
-    }
-
     &__img {
+        margin: auto;
         width: 100%;
     }
 }
 
-.frontPageImg{
+.frontPageImg {
+    margin-left: 20%;
     height: 500px;
 }

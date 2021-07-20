@@ -11,11 +11,6 @@
             "type": "email"
         },
         {
-            "name": "institution",
-            "placeholder": "Enter your institution",
-            "type": "text"
-        },
-        {
             "name": "password",
             "placeholder": "Set password",
             "type": "password"

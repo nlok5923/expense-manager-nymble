@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
-import "./Dashboard.scss";
-import {
-  Grid,
-  Header,
-} from "semantic-ui-react";
-import Card from "../../components/Card/index";
+import "./Dashboard.scss"
+import { Header } from "semantic-ui-react";
+import Table from "../../Components/Table/index"
+// import Card from "../../components/Card/index";
 import { Redirect } from "react-router-dom";
-import useAuthStatus from "../../utils/customHooks/user";
-import HamburgerMenu from "../../components/HamburgerMenu/index";
-import Loader from '../../components/Loader/index'
+import useAuthStatus from "../../Utils/customHooks/user";
+import HamburgerMenu from "../../Components/HamburgerMenu/index";
+import Loader from '../../Components/Loader/index'
 import Axios from 'axios'
-import useToken from '../../utils/customHooks/token'
+import useToken from '../../Utils/customHooks/token'
 
 const Dashboard = () => {
 
+  const [allTransactions, setAllTransations ] = useState([]);
+  const data = [0,1,2,3,4];
+  const heading = ["Date", "Time", "Amount", "Currency", "Description", "Category" ];
   const { getStatus } = useAuthStatus();
   const [isLoading, setLoading] = useState(true);
   const [auth, setAuth] = useState();
@@ -23,44 +24,36 @@ const Dashboard = () => {
 
   useEffect(() => {
     const token = getToken();
-    const quizEndPoint = 'https://peaceful-island-93608.herokuapp.com/dashboard';
-
-    Axios.get(quizEndPoint, {
-      headers: {
-        Authorization: token,
-      }
-    }).then((response) => {
-      setQuizes(response.data)
-      getStatus().then((status) =>{
-        setAuth(status);
-        setLoading(false);
-      })
-    })
+    const fetchExpenses = async () => {
+        try {
+            const response = await Axios.get(
+              "http://localhost:5000/dashboard/all-expenses",
+              {
+                headers: {
+                  Authorization: token,
+                },
+              }
+            );
+            setAllTransations(response.data);
+            console.log(response.data);
+          } catch (error) {
+            console.log(error.message);
+          }
+      };
+      fetchExpenses();
   }, []);
 
-  const rowPositon = { paddingTop: "15px" };
+//   const rowPositon = { paddingTop: "15px" };
   return (
     <div className="container">
-      {isLoading && <Loader />}
+      {/* {isLoading && <Loader />}
       {!isLoading && !auth && <Redirect to="/login" />}
-      {!isLoading && auth && (
+      {!isLoading && auth && ( */}
         <HamburgerMenu>
-          <Header as="h3" >All your quizes are visible here 🤓 </Header>
-          <Grid columns="five" divided>
-            <Grid.Row style={rowPositon}>
-              {quizes.map((ele, index) => {
-                return (
-                  <Grid.Column style={rowPositon}>
-                      <Card
-                      quizInfo = {ele} 
-                      />
-                  </Grid.Column>
-                );
-              })}
-            </Grid.Row>
-          </Grid>
+           <Header as="h3" >Your last 5 transactions are listed here 🤓 </Header>
+            <Table heading={heading} data={allTransactions} />
         </HamburgerMenu>
-      )}
+      {/* )}  */}
     </div>
   );
 };

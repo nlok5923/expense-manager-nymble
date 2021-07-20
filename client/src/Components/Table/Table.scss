@@ -1,0 +1,146 @@
+.table-container > table {
+    width: 100%;
+    color: black !important;
+    border-collapse: collapse;
+
+    th, tr, td {
+        height: 60px;
+    }
+
+    tr {
+    box-shadow: 0px 2px 2px	#D3D3D3;
+    }
+
+    td {
+        text-align: center;
+    }
+}
+
+.heading {
+    background-color: #F2F2F2;
+}
+
+.role {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 80%;
+    gap: 30px;
+    margin-left: 10%;
+}
+
+.summary {
+
+    &-element {
+        display: inline-block;
+
+        &-text {
+            margin: 0 auto;
+            display: inline;
+            text-align: center;
+            padding-right: 5px;
+        }
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #27AE60;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #27AE60;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .sample-role {
+    //   justify-content: flex-start !important;
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 80%;
+      gap: 30px;
+      margin-left: 10%;
+  }
+
+  .access-control {
+      display: flex;
+      flex-direction: column;
+      height: 10vh;
+
+      &-element {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: flex-start;
+          height: 4vh;
+      }
+  }
+
+  .radio-button {
+      margin-top: 20px;
+      align-items: center;
+      margin-right: 10px;
+
+      &-text {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          font-size: 15px;
+        //   flex-wrap: wrap;
+      }
+  }
+
+  .radio-button-text > p {
+      font-size: 10px;
+  }

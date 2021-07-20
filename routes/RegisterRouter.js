@@ -15,7 +15,7 @@ const getToken = (id) => {
 
 router
   .post("/", (req, res, next) => {
-    const { email, password, name, institution } = req.body;
+    const { email, password, name } = req.body;
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -27,7 +27,6 @@ router
           .set({
             name: name,
             email: email,
-            institution: institution,
           })
           .then(() => {
             console.log("User Data successfully written!");
@@ -41,6 +40,7 @@ router
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
+        console.log(errorMessage);
         res.send({ errorMessage });
       });
   });

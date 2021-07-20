@@ -11,10 +11,10 @@ import {
 import Axios from "axios";
 import { useHistory, Redirect } from "react-router-dom";
 import "./Login.scss";
-import useAuthStatus from "../../utils/customHooks/user";
-import useToken from "../../utils/customHooks/token";
-import Navbar from "../../components/Navigation/index";
-import Loader from "../../components/Loader/index";
+import useAuthStatus from "../../Utils/customHooks/user";
+import useToken from "../../Utils/customHooks/token";
+import Navbar from "../../Components/Navigation/index";
+import Loader from "../../Components/Loader/index";
 
 const LoginForm = () => {
   const labelStyle = { fontSize: "15px" };
@@ -53,7 +53,7 @@ const LoginForm = () => {
     };
     try {
       const response = await Axios.post(
-        "https://peaceful-island-93608.herokuapp.com/login",
+        "http://localhost:5000/login",
         userData
       );
       const token = response.data.token;

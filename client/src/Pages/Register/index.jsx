@@ -10,13 +10,13 @@ import {
 } from "semantic-ui-react";
 import Axios from "axios";
 import { useHistory, Redirect } from "react-router-dom";
-import "./Signup.scss";
-import useToken from "../../utils/customHooks/token";
-import useAuthStatus from "../../utils/customHooks/user";
-import Navbar from "../../components/Navigation/index";
-import Loader from "../../components/Loader/index";
+import './Register.scss'
+import useToken from "../../Utils/customHooks/token";
+import useAuthStatus from "../../Utils/customHooks/user";
+import Navbar from "../../Components/Navigation/index";
+import Loader from "../../Components/Loader/index";
 import "semantic-ui-css/semantic.min.css";
-import * as formElements from "../../contents/registration.json"
+import * as formElements from "../../Contents/Registration.json"
 
 const SignupForm = () => {
   const labelStyle = { fontSize: "15px" };
@@ -42,7 +42,6 @@ const SignupForm = () => {
     name: "",
     email: "",
     password: "",
-    institution: "",
   });
 
   const { setToken } = useToken();
@@ -68,16 +67,15 @@ const SignupForm = () => {
   }, [getStatus]);
 
   const sendData = async () => {
-    const { email, password, name, institution } = userInfo;
+    const { email, password, name } = userInfo;
     const userData = {
       password,
       email,
       name,
-      institution,
     };
     try {
       const data = await Axios.post(
-        "https://peaceful-island-93608.herokuapp.com/register",
+        "http://localhost:5000/register",
         userData
       );
       const token = data.data.token;
