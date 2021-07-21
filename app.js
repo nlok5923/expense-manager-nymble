@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/LoginRouter')
 var registerRouter = require('./routes/RegisterRouter')
 var DashboardRouter = require('./routes/DashboardRouter')
+var adminRouter = require('./routes/AdminRouter')
 const cors = require('cors');
 
 var app = express();
@@ -40,6 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/admin', adminRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use('/dashboard', DashboardRouter);

@@ -7,6 +7,9 @@ import Register from "./Pages/Register/index"
 import Dashboard from "./Pages/Dashboard/index"
 import Expenses from "./Pages/Dashboard/Expenses/index"
 import Reports from "./Pages/Dashboard/Report/index"
+import AdminLogin from "./Pages/Admin/Login/index"
+import AdminDashboard from "./Pages/Admin/index"
+import UserExpensePage from "./Pages/Admin/Expenses/index"
 
 const App = () => {
   return (
@@ -16,7 +19,10 @@ const App = () => {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/admin/login" component={AdminLogin} />
+          <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          <Route exact path="/admin/dashboard/user/:id" component={UserExpensePage} />
+          <Route exact path="/dashboard" component={Dashboard} /> 
           <Route exact path="/dashboard/expenses" component={Expenses} />
           <Route exact path="/dashboard/reports" component={Reports} />
         </Switch>

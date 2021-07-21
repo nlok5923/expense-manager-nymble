@@ -1,30 +1,30 @@
 import { useState, useEffect } from "react";
 import "./Admin.scss";
 import { Header } from "semantic-ui-react";
-import { Redirect } from "react-router-dom";
-import useAuthStatus from "../../Utils/customHooks/user";
-import HamburgerMenu from "../../Components/HamburgerMenu/index";
+import { Redirect, NavLink } from "react-router-dom";
+import useAdminAuthStatus from "../../Utils/customHooks/admin";
 import Loader from "../../Components/Loader/index";
 import Axios from "axios";
 import useToken from "../../Utils/customHooks/token";
 import UserCard from "../../Components/UserCard";
 
 const Dashboard = () => {
-  const { getStatus } = useAuthStatus();
+  const { getStatus } = useAdminAuthStatus();
   const [isLoading, setLoading] = useState(true);
   const [auth, setAuth] = useState(true);
+  const [users, setAllUsers] = useState([]);
 
   const { getToken } = useToken();
 
   useEffect(() => {
     const token = getToken();
     try {
-      Axios.get("http://localhost:5000/dashboard/all-expenses", {
+      Axios.get("http://localhost:5000/admin/all-users", {
         headers: {
           Authorization: token,
         },
       }).then((response) => {
-        // setAllTransations(response.data);
+        setAllUsers(response.data);
         getStatus().then((status) => {
           setAuth(status);
           setLoading(false);
@@ -39,15 +39,18 @@ const Dashboard = () => {
   return (
     <div className="container">
       {isLoading && <Loader />}
-      {!isLoading && !auth && <Redirect to="/login" />}
+      {!isLoading && !auth && <Redirect to="/admin/login" />}
       {!isLoading && auth && (
-        <HamburgerMenu>
+           <div>
           <Header as="h3">Welcome to admin access here is the list of all users </Header>
-          {/* <Table heading={heading} data={filterExpenses(allTransactions)} /> */}
-          <UserCard />
-            {/* Total expenditure: {totalExpenseAmount(allTransactions)} */}
-        </HamburgerMenu>
-      )}
+          {users.map((userInfo) => {
+            return(
+                <NavLink to={`/admin/dashboard/user/${userInfo.id}`} >
+                    <UserCard data={userInfo.data} /> 
+                    </NavLink>)
+              })}
+              </div>
+    )}
     </div>
   );
 };

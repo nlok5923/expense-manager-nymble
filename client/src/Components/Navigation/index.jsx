@@ -17,6 +17,13 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
+          <Link to="/admin/login">
+            <Button basic color="green">
+             Admin Login
+            </Button>
+          </Link>
+        </li>
+        <li>
           <Link to="/register">
             <Button basic color="green">
               Register

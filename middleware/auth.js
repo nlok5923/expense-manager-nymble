@@ -35,6 +35,7 @@ const adminAuth = async (req, res, next) => {
   } catch (err) {
     console.log(err.message);
     res.status("401").send("Please authenticate");
+    return false;
   }
 };
 

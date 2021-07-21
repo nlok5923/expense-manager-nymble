@@ -3,7 +3,7 @@ var router = express.Router();
 var firebase = require("firebase/app");
 const app = require("../fire");
 const db = firebase.firestore(app);
-const { authRequired } = require("../middleware/auth");
+const { authRequired, adminAuth } = require("../middleware/auth");
 const {
   getCurrentDate,
   getCurrentTime,
@@ -44,7 +44,7 @@ router
       console.log("got unknown error");
     }
   })
-  .get("/all-expenses", authRequired, async (req, res, next) => {
+  .get("/all-expenses", authRequired , async (req, res, next) => {
     const quizDocRef = db
       .collection("users")
       .doc(req.token)
@@ -122,6 +122,6 @@ router
     } catch (err) {
       console.log("Error caugth", err);
     }
-  });
+  })
 
 module.exports = router;

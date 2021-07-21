@@ -13,6 +13,12 @@ const getToken = (id) => {
   });
 };
 
+// const getTokenForAdmin = (id) => {
+//   return jwt.sign({ id }, process.env.ADMIN_SESSION_SECRET, {
+//     expiresIn: MAXAGE,
+//   });
+// };
+
 router.post("/", (req, res, next) => {
   const { email, password, name } = req.body;
   firebase

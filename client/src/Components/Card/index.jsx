@@ -6,7 +6,7 @@ import Axios from "axios";
 import useToken from "../../Utils/customHooks/token";
 import { NavLink } from "react-router-dom";
 
-const CardReactComponent = ({ expense }) => {
+const CardReactComponent = ({ expense, isAdmin, userId }) => {
     const [open, setOpen] = useState(false);
     const [newExpense, setNewExpense] = useState({
         category: "",
@@ -41,9 +41,20 @@ const CardReactComponent = ({ expense }) => {
     const { getToken } = useToken();
     const deleteExpense = async (expenseid) => {
          const token = getToken();
-     const endpoint =
-        "http://localhost:5000/dashboard/delete/" + expenseid;
       try {
+        if(isAdmin) {
+          const endpoint =
+        "http://localhost:5000/admin/delete/" + expenseid;
+        await Axios.post(endpoint, { userId },{
+          headers: {
+            Authorization: token,
+          }
+        });
+        window.location.reload();
+        // history.push("/dashboard");
+        } else {
+          const endpoint =
+        "http://localhost:5000/dashboard/delete/" + expenseid;
         await Axios.delete(endpoint, {
           headers: {
             Authorization: token,
@@ -51,6 +62,7 @@ const CardReactComponent = ({ expense }) => {
         });
         window.location.reload();
         // history.push("/dashboard");
+        }
       } catch (err) {
         console.log(err);
       }
@@ -58,15 +70,26 @@ const CardReactComponent = ({ expense }) => {
 
     const updateExpense = async (expenseid) => {
         const token = getToken();
-        const endpoint =
-           "http://localhost:5000/dashboard/update/" + expenseid;
          try {
-           await Axios.put(endpoint, newExpense, {
-             headers: {
-               Authorization: token,
-             },
-           });
-           window.location.reload();
+           if(isAdmin) {
+            const endpoint =
+            "http://localhost:5000/admin/update/" + expenseid;
+             await Axios.put(endpoint, { newExpense, userId }, {
+               headers: {
+                 Authorization: token,
+               },
+             });
+             window.location.reload();
+           } else {
+            const endpoint =
+            "http://localhost:5000/dashboard/update/" + expenseid;
+             await Axios.put(endpoint, newExpense, {
+               headers: {
+                 Authorization: token,
+               },
+             });
+             window.location.reload();
+           }
            // history.push("/dashboard");
          } catch (err) {
            console.log(err);

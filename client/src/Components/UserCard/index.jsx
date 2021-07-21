@@ -1,13 +1,13 @@
 import React from "react";
 import { Card } from "semantic-ui-react"
 
-const UserCard = () => {
+const UserCard = (props) => {
     return(
         <Card fluid>
         <Card.Content>
-          <Card.Header>User name </Card.Header>
+          <Card.Header>{props.data.name} </Card.Header>
           <Card.Description>
-              User email
+              {props.data.email}
           </Card.Description> 
         </Card.Content>
       </Card>

@@ -194,7 +194,7 @@ const Expenses = () => {
               })
               .map((expense, index) => {
                 return (
-                  <Card key={index} id={selectedCategory} expense={expense} />
+                  <Card key={index} id={selectedCategory} expense={expense} isAdmin={false} userId={null} />
                 );
               })}
           </Container>
