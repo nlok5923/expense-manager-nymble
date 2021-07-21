@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const app = require("../fire");
 const db = firebase.firestore(app);
 const { authRequired } = require("../middleware/auth");
-const { getCurrentDate, getCurrentTime } = require("../utils/utils")
+const { getCurrentDate, getCurrentTime, getWeeksInMonth, weekWiseExpenditure, monthlyTransactions, expenditureCategoryWise } = require("../utils/utils")
 
 const MAXAGE = 10 * 60 * 60 * 24;
 
@@ -21,7 +21,7 @@ router
   })
 
   .post("/add-expense", authRequired, (req, res, next) => {
-      const { title, currency, category, description } = req.body;
+      const { title, currency, category, description, amount } = req.body;
       const time = getCurrentTime();
       const date = getCurrentDate();
       try {
@@ -31,7 +31,8 @@ router
         date,
         time,
         description,
-        category
+        category,
+        amount
       }).then((doc) => {
           console.log("Successfully created");
       })
@@ -50,7 +51,7 @@ router
            });
            
     });
-    console.log(expenses);
+    // console.log(expenses);
     res.send(expenses);
    })
 
@@ -73,6 +74,7 @@ router
 .put("/update/:id", authRequired, async (req, res) => {
     try {
       const { description, currency, amount, title, category } = req.body;
+      console.log(req.body);
       const id = req.params.id;
       const token = req.token;
       await db
@@ -81,13 +83,43 @@ router
         .collection("expenses")
         .doc(id)
         .set({ description, currency, amount, title, category });
-      res.send("Quiz Saved");
+        res.send("expense saved");
     } catch (error) {
       console.log(error.message);
       res.status(500).send(error.message);
     }
+  })
+ 
+  .get("/reports", authRequired, async (req, res) => {
+    try {
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+      let weeksDateInMonth = getWeeksInMonth(currentYear, currentMonth);
+      const quizDocRef = db
+      .collection("users")
+      .doc(req.token)
+      .collection("expenses");
+      let expenses = [];
+      await quizDocRef.get().then((querySnapshot) => {
+          querySnapshot.forEach((doc, index) =>{ expenses.push(doc.data())
+        });
+      });
+      let monthlyExpenses = monthlyTransactions(expenses);
+      // expenditureCategoryWise(mo);
+      console.log(
+        { 
+          category: expenditureCategoryWise(monthlyExpenses),
+          weekly: weekWiseExpenditure(weeksDateInMonth, monthlyExpenses) 
+          }
+      );
+      res.send({ 
+        category: expenditureCategoryWise(monthlyExpenses),
+        weekly: weekWiseExpenditure(weeksDateInMonth, monthlyExpenses) 
+        });
+    } catch(err) {
+      console.log("Error caugth", err);
+    }
   });
-  
 
   
 module.exports = router;

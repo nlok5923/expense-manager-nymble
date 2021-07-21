@@ -20,6 +20,7 @@ const Expenses = () => {
   const [open, setOpen] = useState(false);
   const addButtonMargin = { marginBottom: "20px" };
   const [alltransactions, setTransations] = useState([]);
+  const [selectedCategory, setSelectedCatetory] = useState();
   const [expense, setExpense] = useState({
       title: "",
       description: "",
@@ -28,6 +29,9 @@ const Expenses = () => {
       amount: ""
   });
 
+  const filterCategorySelection = (e, data) => {
+    setSelectedCatetory(data.value);
+  };
 
   useEffect(() => {
     const fetchExpenses = async () => {
@@ -77,6 +81,7 @@ const Expenses = () => {
         }
       );
     console.log("bhej dia", response);
+    window.location.reload();
     } catch (error) {
       console.log(error.message);
     }
@@ -94,6 +99,13 @@ const Expenses = () => {
     <HamburgerMenu>
       <Container>
         <Header as="h3">Edit your transactions here 🤓 </Header>
+        <Dropdown
+          floated="right"
+          clearable
+          options={categories}
+          selection
+          onChange={(e, data) => filterCategorySelection(e, data)}
+          />
         <Modal
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
@@ -165,7 +177,9 @@ const Expenses = () => {
             </Button>
           </Modal.Actions>
         </Modal>
-        {alltransactions.map((expense, index) =>{  return( <Card key={index} expense={expense} /> ) })}
+        {alltransactions.filter((expense, index) => { 
+          return( (!!selectedCategory) ? expense.data.category === selectedCategory : true)
+        }).map((expense, index) =>{  return( <Card key={index} id={selectedCategory} expense={expense} /> ) })}
       </Container>
     </HamburgerMenu>
   );

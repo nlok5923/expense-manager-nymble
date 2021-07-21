@@ -1,5 +1,5 @@
 import "./Card.scss";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Card, Label, Button, Header, Icon, Modal, Form, Dropdown } from "semantic-ui-react";
 import Axios from "axios";
@@ -14,7 +14,16 @@ const CardReactComponent = ({ expense }) => {
         title: "",
         amount: "",
         currency: ""
-    })
+    });
+    useEffect(() => {
+      setNewExpense({
+        category: expense.data.category,
+        description: expense.data.description,
+        title: expense.data.title,
+        amount: expense.data.amount,
+        currency: expense.data.currency,
+      })
+    },[expense])
     const saveExpenseInfo = (e) => {
         setNewExpense({
           ...newExpense,
@@ -143,7 +152,7 @@ const categories = [
                 <input
                   placeholder="Please enter expense title"
                   name="title"
-                  value={expense.title}
+                  value={newExpense.title}
                   onChange={(e) => saveExpenseInfo(e)}
                 />
                 <label>Enter amount </label>
@@ -151,14 +160,14 @@ const categories = [
                   placeholder="Enter amount"
                   name="amount"
                   onChange={(e) => saveExpenseInfo(e)}
-                  value = {expense.amount}
+                  value = {newExpense.amount}
                 />
                 <label>Enter currency in which amount paid </label>
                 <input
                   placeholder="Enter currency of transaction"
                   name="currency"
                   onChange={(e) => saveExpenseInfo(e)}
-                  value= {expense.currency}
+                  value= {newExpense.currency}
                 />
                 <label>
                   <Header> Select expense category</Header>
@@ -167,7 +176,7 @@ const categories = [
                   floated="right"
                   clearable
                   options={categories}
-                  value={expense.category}
+                  value={newExpense.category}
                   name="category"
                   selection
                   onChange={(e, data) => handleCategorySelection(e, data)}
@@ -177,7 +186,7 @@ const categories = [
                 <textarea
                   placeholder="describe your expense"
                   name="description"
-                  value={expense.description}
+                  value={newExpense.description}
                   onChange={(e) => saveExpenseInfo(e)}
                 />
               </Form.Field>
