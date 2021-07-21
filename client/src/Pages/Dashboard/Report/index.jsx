@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import "./Report.scss";
 import { Header, Card } from "semantic-ui-react";
-// import Card from "../../components/Card/index";
 import { Redirect } from "react-router-dom";
 import useAuthStatus from "../../../Utils/customHooks/user";
 import HamburgerMenu from "../../../Components/HamburgerMenu/index";
 import Loader from "../../../Components/Loader/index";
 import Axios from "axios";
 import useToken from "../../../Utils/customHooks/token";
-// import { getWeeksInMonth } from "../../../Utils/utils"
 
 const Dashboard = () => {
   const months = [
@@ -27,10 +25,9 @@ const Dashboard = () => {
   ];
   const [expenditureReport, setExpenditureReport] = useState([]);
   const [category, setCategory] = useState([]);
-  //   const heading = ["Date", "Time", "Amount", "Currency", "Description", "Category" ];
-  //   const { getStatus } = useAuthStatus();
-  //   const [isLoading, setLoading] = useState(true);
-  //   const [auth, setAuth] = useState();
+  const { getStatus } = useAuthStatus();
+  const [isLoading, setLoading] = useState(true);
+  const [auth, setAuth] = useState();
 
   const { getToken } = useToken();
 
@@ -43,6 +40,10 @@ const Dashboard = () => {
           headers: {
             Authorization: token,
           },
+        });
+        getStatus().then(status =>  {
+            setAuth(status);
+            setLoading(false);
         });
         setExpenditureReport(response.data.weekly);
         setCategory(response.data.category);
@@ -81,9 +82,9 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      {/* {isLoading && <Loader />}
+      {isLoading && <Loader />}
       {!isLoading && !auth && <Redirect to="/login" />}
-      {!isLoading && auth && ( */}
+      {!isLoading && auth && ( 
       <HamburgerMenu>
         <Header as="h3">
           Expenditure of month{" "}
@@ -97,7 +98,7 @@ const Dashboard = () => {
           {category.map((item, index) => categoricalExpenseCard(item, index))}
         </Card.Group>
       </HamburgerMenu>
-      {/* )}  */}
+      )}
     </div>
   );
 };

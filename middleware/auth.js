@@ -20,4 +20,22 @@ const authRequired = async (req, res, next) => {
     res.status("401").send("Please authenticate");
   }
 };
-module.exports = { authRequired };
+
+const adminAuth = async (req, res, next) => {
+  try {
+    const token = req.header("Authorization").replace("Bearer ", "");
+    const decoded = await jwt.verify(token, process.env.ADMIN_SESSION_SECRET);
+    const userDocRef = await db.collection("admin").doc(decoded.id);
+    const doc = await userDocRef.get();
+    if (!doc.exists) res.status("401").send("Please authenticate");
+    else {
+      req.token = decoded.id;
+      next();
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.status("401").send("Please authenticate");
+  }
+};
+
+module.exports = { authRequired, adminAuth };

@@ -13,6 +13,7 @@ var DashboardRouter = require('./routes/DashboardRouter')
 const cors = require('cors');
 
 var app = express();
+app.disable('etag');
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(

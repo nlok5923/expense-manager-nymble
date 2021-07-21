@@ -7,7 +7,7 @@ const useAuthStatus = () => {
   const getStatus = async () => {
     try {
       if (!token || token.length === 0) return false;
-      var response = await Axios.get("https://peaceful-island-93608.herokuapp.com/checkAuth", {
+      var response = await Axios.get("http://localhost:5000/check-authorization", {
         headers: {
           Authorization: token,
         },

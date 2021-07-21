@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var firebase = require("firebase/app");
-const jwt = require("jsonwebtoken");
 const app = require("../fire");
 const db = firebase.firestore(app);
 const { authRequired } = require("../middleware/auth");
@@ -15,12 +14,6 @@ const {
 } = require("../utils/utils");
 
 const MAXAGE = 10 * 60 * 60 * 24;
-
-const getToken = (id) => {
-  return jwt.sign({ id }, process.env.SESSION_SECRET, {
-    expiresIn: MAXAGE,
-  });
-};
 
 router
   .get("/", function (req, res, next) {
@@ -62,7 +55,7 @@ router
         expenses.push({ id: doc.id, data: doc.data() });
       });
     });
-    // console.log(expenses);
+    console.log(expenses);
     res.send(expenses);
   })
 

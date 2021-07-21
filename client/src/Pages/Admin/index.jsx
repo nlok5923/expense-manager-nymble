@@ -1,25 +1,15 @@
 import { useState, useEffect } from "react";
-import "./Dashboard.scss";
+import "./Admin.scss";
 import { Header } from "semantic-ui-react";
-import Table from "../../Components/Table/index";
 import { Redirect } from "react-router-dom";
 import useAuthStatus from "../../Utils/customHooks/user";
 import HamburgerMenu from "../../Components/HamburgerMenu/index";
 import Loader from "../../Components/Loader/index";
 import Axios from "axios";
 import useToken from "../../Utils/customHooks/token";
-import { filterExpenses, totalExpenseAmount } from "../../Utils/utils";
+import UserCard from "../../Components/UserCard";
 
 const Dashboard = () => {
-  const [allTransactions, setAllTransations] = useState([]);
-  const heading = [
-    "Date",
-    "Time",
-    "Amount",
-    "Currency",
-    "Description",
-    "Category",
-  ];
   const { getStatus } = useAuthStatus();
   const [isLoading, setLoading] = useState(true);
   const [auth, setAuth] = useState(true);
@@ -34,7 +24,7 @@ const Dashboard = () => {
           Authorization: token,
         },
       }).then((response) => {
-        setAllTransations(response.data);
+        // setAllTransations(response.data);
         getStatus().then((status) => {
           setAuth(status);
           setLoading(false);
@@ -52,11 +42,10 @@ const Dashboard = () => {
       {!isLoading && !auth && <Redirect to="/login" />}
       {!isLoading && auth && (
         <HamburgerMenu>
-          <Header as="h3">Your last 5 transactions are listed here 🤓 </Header>
-          <Table heading={heading} data={filterExpenses(allTransactions)} />
-          <Header as="h4">
-            Total expenditure: {totalExpenseAmount(allTransactions)}
-          </Header>
+          <Header as="h3">Welcome to admin access here is the list of all users </Header>
+          {/* <Table heading={heading} data={filterExpenses(allTransactions)} /> */}
+          <UserCard />
+            {/* Total expenditure: {totalExpenseAmount(allTransactions)} */}
         </HamburgerMenu>
       )}
     </div>
