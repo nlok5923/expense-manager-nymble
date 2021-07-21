@@ -22,11 +22,11 @@ const Expenses = () => {
   const [alltransactions, setTransations] = useState([]);
   const [selectedCategory, setSelectedCatetory] = useState();
   const [expense, setExpense] = useState({
-      title: "",
-      description: "",
-      currency: "",
-      category: "",
-      amount: ""
+    title: "",
+    description: "",
+    currency: "",
+    category: "",
+    amount: "",
   });
 
   const filterCategorySelection = (e, data) => {
@@ -35,38 +35,38 @@ const Expenses = () => {
 
   useEffect(() => {
     const fetchExpenses = async () => {
-        try {
-            const response = await Axios.get(
-              "http://localhost:5000/dashboard/all-expenses",
-              {
-                headers: {
-                  Authorization: token,
-                },
-              }
-            );
-            setTransations(response.data);
-            console.log(response.data);
-            console.log(response);
-          } catch (error) {
-            console.log(error.message);
+      try {
+        const response = await Axios.get(
+          "http://localhost:5000/dashboard/all-expenses",
+          {
+            headers: {
+              Authorization: token,
+            },
           }
-      };
-      fetchExpenses();
-    },[token])
+        );
+        setTransations(response.data);
+        console.log(response.data);
+        console.log(response);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchExpenses();
+  }, [token]);
 
   const saveExpenseInfo = (e) => {
-      setExpense({
-        ...expense,
-        [e.target.name]: e.target.value,
-      });
+    setExpense({
+      ...expense,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleCategorySelection = (e, data) => {
-      setExpense({
-        ...expense,
-        [data.name]: data.value,
-      });
-  };  
+    setExpense({
+      ...expense,
+      [data.name]: data.value,
+    });
+  };
 
   const saveExpense = async () => {
     setOpen(false);
@@ -80,13 +80,12 @@ const Expenses = () => {
           },
         }
       );
-    console.log("bhej dia", response);
-    window.location.reload();
+      console.log("bhej dia", response);
+      window.location.reload();
     } catch (error) {
       console.log(error.message);
     }
   };
-
 
   const categories = [
     { key: 1, value: "Home", text: "Home" },
@@ -105,7 +104,7 @@ const Expenses = () => {
           options={categories}
           selection
           onChange={(e, data) => filterCategorySelection(e, data)}
-          />
+        />
         <Modal
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}
@@ -167,19 +166,21 @@ const Expenses = () => {
           </Modal.Content>
           <Modal.Actions>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
-            <Button
-              Icon
-              onClick={() => saveExpense()}
-              positive
-            >
+            <Button Icon onClick={() => saveExpense()} positive>
               <Icon name="save" />
               Save
             </Button>
           </Modal.Actions>
         </Modal>
-        {alltransactions.filter((expense, index) => { 
-          return( (!!selectedCategory) ? expense.data.category === selectedCategory : true)
-        }).map((expense, index) =>{  return( <Card key={index} id={selectedCategory} expense={expense} /> ) })}
+        {alltransactions
+          .filter((expense, index) => {
+            return !!selectedCategory
+              ? expense.data.category === selectedCategory
+              : true;
+          })
+          .map((expense, index) => {
+            return <Card key={index} id={selectedCategory} expense={expense} />;
+          })}
       </Container>
     </HamburgerMenu>
   );
