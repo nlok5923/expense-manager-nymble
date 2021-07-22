@@ -30,27 +30,6 @@ const Navbar = () => {
             </Button>
           </Link>
         </li>
-        <li>
-          <Link to="/dashboard">
-            <Button basic color="green">
-                Dashboard
-            </Button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/expense">
-            <Button basic color="green">
-                Expense
-            </Button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Report">
-            <Button basic color="green">
-                Report
-            </Button>
-          </Link>
-        </li>
       </ul>
     </nav>
   );

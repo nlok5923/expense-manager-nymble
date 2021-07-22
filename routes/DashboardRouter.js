@@ -110,17 +110,12 @@ router
         });
       });
       let monthlyExpenses = monthlyTransactions(expenses);
-      // expenditureCategoryWise(mo);
-      console.log({
-        category: expenditureCategoryWise(monthlyExpenses),
-        weekly: weekWiseExpenditure(weeksDateInMonth, monthlyExpenses),
-      });
       res.send({
         category: expenditureCategoryWise(monthlyExpenses),
         weekly: weekWiseExpenditure(weeksDateInMonth, monthlyExpenses),
       });
     } catch (err) {
-      console.log("Error caugth", err);
+      console.log("Error caught", err);
     }
   })
 

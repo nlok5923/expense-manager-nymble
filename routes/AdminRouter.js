@@ -10,7 +10,7 @@ const { adminAuth } = require("../middleware/auth");
 const MAXAGE = 10 * 60 * 60 * 24;
 
 const getTokenForAdmin = (id) => {
-  return jwt.sign({ id }, process.env.ADMIN_SESSION_SECRET, {
+  return jwt.sign({ id }, process.env.ADMIN_JWT_SECRET, {
     expiresIn: MAXAGE,
   });
 };

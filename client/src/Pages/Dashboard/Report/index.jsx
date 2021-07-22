@@ -28,6 +28,8 @@ const Dashboard = () => {
   const { getStatus } = useAuthStatus();
   const [isLoading, setLoading] = useState(true);
   const [auth, setAuth] = useState();
+  const currentMonth = months.filter((month, index) => new Date().getMonth() === index);
+  const currentYear = new Date().getFullYear();
 
   const { getToken } = useToken();
 
@@ -58,11 +60,14 @@ const Dashboard = () => {
     return (
       <Card fluid>
         <Card.Content>
-          <Card.Header>Week {index + 1}</Card.Header>
+          <Card.Header>Week {index + 1} </Card.Header>
           <Card.Description>
-            {expenditure === -1
+          {expenditure.start} | {currentMonth} | {currentYear} - {expenditure.end} | {currentMonth} | {currentYear} 
+          </Card.Description>
+          <Card.Description>
+            {expenditure.total === -1
               ? "No transaction this week"
-              : "Total: " + expenditure}
+              : "Total: " + expenditure.total}
           </Card.Description> 
         </Card.Content>
       </Card>
@@ -87,8 +92,7 @@ const Dashboard = () => {
       {!isLoading && auth && ( 
       <HamburgerMenu>
         <Header as="h3">
-          Expenditure of month{" "}
-          {months.filter((month, index) => new Date().getMonth() === index)} 🤓{" "}
+          Expenditure of month {currentMonth}/{currentYear} 🤓
         </Header>
         {expenditureReport.map((expenditure, index) =>
           expenditureCard(expenditure, index)

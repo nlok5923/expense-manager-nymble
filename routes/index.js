@@ -14,7 +14,7 @@ router
   .get("/check-authorization", async (req, res) => {
     try {
       const token = req.header("Authorization").replace("Bearer ", "");
-      jwt.verify(token, process.env.SESSION_SECRET, async (err, decoded) => {
+      jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
         if (err) res.send(false);
         const userDocRef = await db.collection("users").doc(decoded.id);
         const doc = await userDocRef.get();
@@ -32,7 +32,7 @@ router
   .get("/check-admin-authorization", async (req, res) => {
     try {
       const token = req.header("Authorization").replace("Bearer ", "");
-      jwt.verify(token, process.env.ADMIN_SESSION_SECRET, async (err, decoded) => {
+      jwt.verify(token, process.env.ADMIN_JWT_SECRET, async (err, decoded) => {
         if (err) res.send(false);
         const userDocRef = await db.collection("admin").doc(decoded.id);
         const doc = await userDocRef.get();

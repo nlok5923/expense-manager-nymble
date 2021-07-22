@@ -90,7 +90,6 @@ const Expenses = () => {
           },
         }
       );
-      console.log("bhej dia", response);
       window.location.reload();
     } catch (error) {
       console.log(error.message);

@@ -3,7 +3,7 @@ const getCurrentDate = () => {
   var dd = String(today.getDate()).padStart(2, "0");
   var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
   var yyyy = today.getFullYear();
-  today = mm + "/" + dd + "/" + yyyy;
+  today = dd + "/" + mm + "/" + yyyy;
   return today;
 };
 
@@ -47,16 +47,20 @@ const weekWiseExpenditure = (weeksInMonths, transactions) => {
     let sum = 0;
     let isTransactionHappen = false;
     transactions.map((transaction) => {
+      console.log(transaction.date.slice(0,2));
+      console.log("fdfdfdf");
       if (
-        new Date(transaction.date).getDay() >= startDate &&
-        new Date(transaction.date).getDay() <= endDate
+        transaction.date.slice(0,2) >= startDate &&
+        transaction.date.slice(0,2) <= endDate
       ) {
         sum += Number(transaction.amount);
         isTransactionHappen = true;
       }
     });
-    if (isTransactionHappen) perWeekExpenditure.push(sum);
-    else perWeekExpenditure.push(-1);
+    if (isTransactionHappen) { 
+      perWeekExpenditure.push({ total: sum, start: startDate, end: endDate }); 
+    }
+    else { perWeekExpenditure.push({ total: -1, start: startDate, end: endDate }); }
   });
   console.log(perWeekExpenditure);
   return perWeekExpenditure;
@@ -66,10 +70,9 @@ const monthlyTransactions = (expenses) => {
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   return expenses.filter((expense) => {
-    let expenseDate = new Date(expense.date);
-    let expenseMonth = expenseDate.getMonth();
-    let expenseYear = expenseDate.getFullYear();
-    return expenseYear === currentYear ? currentMonth === expenseMonth : false;
+    let expenseMonth = expense.date.slice(3, 5);
+    let expenseYear = expense.date.slice(-4);
+    return expenseYear == currentYear ? currentMonth + 1 == expenseMonth : false;
   });
 };
 

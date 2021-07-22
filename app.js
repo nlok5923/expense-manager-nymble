@@ -26,7 +26,7 @@ app.use(function (req, res, next) {
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.JWT_SECRET,
     resave: true,
     saveUninitialized: true,
   })

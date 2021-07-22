@@ -8,7 +8,7 @@ const db = firebase.firestore(app);
 const MAXAGE = 10 * 60 * 60 * 24;
 
 const getToken = (id) => {
-  return jwt.sign({ id }, process.env.SESSION_SECRET, {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: MAXAGE,
   });
 };

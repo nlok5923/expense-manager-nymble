@@ -10,6 +10,7 @@ import { Redirect, useParams } from "react-router-dom";
 import useAdminAuthStatus from "../../../Utils/customHooks/admin";
 import Axios from "axios";
 import useToken from "../../../Utils/customHooks/token";
+import AdminNavigation from "../../../Components/AdminNavigation/index"
 
 const Expenses = () => {
   const { getToken } = useToken();
@@ -61,7 +62,9 @@ const Expenses = () => {
       {isLoading && <Loader />}
       {!isLoading && !auth && <Redirect to="/login" />}
       {!isLoading && auth && (
-          <Container>
+          <>
+            <AdminNavigation />
+            <Container>
             <Header as="h3">Edit your transactions here 🤓 </Header>
             <Dropdown
               floated="right"
@@ -81,7 +84,8 @@ const Expenses = () => {
                   <Card key={index} id={selectedCategory} expense={expense} isAdmin={true} userId={params.id} />
                 );
               })}
-          </Container>
+            </Container>
+          </>
       )}
     </>
   );

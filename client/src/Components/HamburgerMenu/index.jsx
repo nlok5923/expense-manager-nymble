@@ -52,14 +52,14 @@ const BurgerMenu = (props) => {
 
                 <NavLink exact activeClassName="current" to={`/dashboard/expenses`}>
                   <Menu.Item as='a'>
-                    <Icon name='file alternate outline' />
+                    <Icon name='money bill alternate outline' />
                     Expense
                 </Menu.Item>
                 </NavLink>
 
                 <NavLink exact activeClassName="current" to={`/dashboard/reports`}>
                 <Menu.Item as='a'>
-                  <Icon name='user' />
+                  <Icon name='address book outline' />
                   Report
               </Menu.Item>
               </NavLink>

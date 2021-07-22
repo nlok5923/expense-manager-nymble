@@ -7,6 +7,7 @@ import Loader from "../../Components/Loader/index";
 import Axios from "axios";
 import useToken from "../../Utils/customHooks/token";
 import UserCard from "../../Components/UserCard";
+import AdminNavigation from "../../Components/AdminNavigation/index"
 
 const Dashboard = () => {
   const { getStatus } = useAdminAuthStatus();
@@ -42,6 +43,7 @@ const Dashboard = () => {
       {!isLoading && !auth && <Redirect to="/admin/login" />}
       {!isLoading && auth && (
            <div>
+          <AdminNavigation />
           <Header as="h3">Welcome to admin access here is the list of all users </Header>
           {users.map((userInfo) => {
             return(
