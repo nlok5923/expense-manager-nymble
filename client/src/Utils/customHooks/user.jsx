@@ -15,6 +15,7 @@ const useAuthStatus = () => {
       return response.data;
     } catch (error) {
       console.log(error);
+      window.location.href = "/";
       return false;
     }
   };
