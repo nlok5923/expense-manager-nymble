@@ -11,6 +11,7 @@ const {
   weekWiseExpenditure,
   monthlyTransactions,
   expenditureCategoryWise,
+  getRatesInAllCurrency
 } = require("../utils/utils");
 
 const MAXAGE = 10 * 60 * 60 * 24;
@@ -22,8 +23,12 @@ router
 
   .post("/add-expense", authRequired, (req, res, next) => {
     const { title, currency, category, description, amount } = req.body;
-    const time = getCurrentTime();
-    const date = getCurrentDate();
+    let time = getCurrentTime();
+    let date = getCurrentDate();
+    let rates = getRatesInAllCurrency(currency, amount);
+    console.log(rates)
+    let usdAmount = rates.usdAmount;
+    let inrAmount = rates.inrAmount;
     try {
       db.collection("users")
         .doc(req.token)
@@ -36,12 +41,14 @@ router
           description,
           category,
           amount,
+          usdAmount,
+          inrAmount
         })
         .then((doc) => {
           console.log("Successfully created");
         });
     } catch (err) {
-      console.log("got unknown error");
+      console.log("got unknown error",err);
     }
   })
   .get("/all-expenses", authRequired , async (req, res, next) => {

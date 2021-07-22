@@ -81,7 +81,7 @@ const Expenses = () => {
   const saveExpense = async () => {
     setOpen(false);
     try {
-      const response = await Axios.post(
+      await Axios.post(
         "http://localhost:5000/dashboard/add-expense",
         expense,
         {
@@ -90,10 +90,10 @@ const Expenses = () => {
           },
         }
       );
-      window.location.reload();
     } catch (error) {
       console.log(error.message);
     }
+    window.location.reload();
   };
 
   const categories = [
@@ -103,6 +103,12 @@ const Expenses = () => {
     { key: 4, value: "Fuel", text: "Fuel" },
     { key: 5, value: "Other", text: "Other" },
   ];
+
+  const currencies = [
+    { key: 1, value: "USD", text: "USD" },
+    { key: 2, value: "INR", text: "INR" },
+  ];
+
   return (
     <>
       {isLoading && <Loader />}
@@ -151,10 +157,13 @@ const Expenses = () => {
                       onChange={(e) => saveExpenseInfo(e)}
                     />
                     <label>Enter currency in which amount paid </label>
-                    <input
-                      placeholder="Enter currency of transaction"
+                    <Dropdown
+                      floated="right"
+                      clearable
+                      options={currencies}
                       name="currency"
-                      onChange={(e) => saveExpenseInfo(e)}
+                      selection
+                      onChange={(e, data) => handleCategorySelection(e, data)}
                     />
                     <label>
                       <Header> Select expense category</Header>

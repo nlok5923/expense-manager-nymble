@@ -1,3 +1,12 @@
+const currencies = [
+  { key: 1, value: "USD", text: "USD" },
+  { key: 2, value: "AUD", text: "AUD" },
+  { key: 3, value: "CAD", text: "CAD" },
+  { key: 4, value: "PLN", text: "PLN" },
+  { key: 5, value: "MXN", text: "MXN" },
+  { key: 6, value: "INR", text: "INR" },
+];
+
 const getCurrentDate = () => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
@@ -46,21 +55,25 @@ const weekWiseExpenditure = (weeksInMonths, transactions) => {
     let endDate = week.end;
     let sum = 0;
     let isTransactionHappen = false;
+    let inrSum = 0, usdSum = 0;
     transactions.map((transaction) => {
-      console.log(transaction.date.slice(0,2));
-      console.log("fdfdfdf");
       if (
         transaction.date.slice(0,2) >= startDate &&
         transaction.date.slice(0,2) <= endDate
       ) {
+        console.log(transaction.inrAmount, transaction.usdAmount);
+        inrSum += Number(transaction.inrAmount);
+        usdSum += Number(transaction.usdAmount);
         sum += Number(transaction.amount);
         isTransactionHappen = true;
       }
     });
     if (isTransactionHappen) { 
-      perWeekExpenditure.push({ total: sum, start: startDate, end: endDate }); 
+      perWeekExpenditure.push({ total: sum, start: startDate, end: endDate, inrSum: inrSum, usdSum: usdSum }); 
     }
-    else { perWeekExpenditure.push({ total: -1, start: startDate, end: endDate }); }
+    else { 
+      perWeekExpenditure.push({ total: -1, start: startDate, end: endDate, inrSum: inrSum, usdSum:usdSum }); 
+    }
   });
   console.log(perWeekExpenditure);
   return perWeekExpenditure;
@@ -78,24 +91,41 @@ const monthlyTransactions = (expenses) => {
 
 const expenditureCategoryWise = (expenses) => {
   let category = new Map();
-  category.set("Food", 0);
-  category.set("Shopping", 0);
-  category.set("Other", 0);
-  category.set("Fuel", 0);
-  category.set("Home", 0);
+  category.set("Food", {inrSum: 0, usdSum: 0});
+  category.set("Shopping", {inrSum: 0, usdSum: 0});
+  category.set("Other", {inrSum: 0, usdSum: 0});
+  category.set("Fuel", {inrSum: 0, usdSum: 0});
+  category.set("Home", {inrSum: 0, usdSum: 0});
   expenses.map((expense) => {
     category.set(
       expense.category,
-      +category.get(expense.category) + +expense.amount
+      {
+       inrSum: +category.get(expense.category).inrSum + +expense.inrAmount,
+       usdSum: +category.get(expense.category).usdSum + +expense.usdAmount,
+      }
     );
   });
   let categoricalSum = [];
   category.forEach(function (value, key) {
     categoricalSum.push({ name: key, sum: value });
   });
+  console.log(categoricalSum);
 
   return categoricalSum;
 };
+
+
+const getRatesInAllCurrency = (currentCurrency, amount) => {
+  let usdAmount = 0, inrAmount = 0;
+  if(currentCurrency == "INR") {
+    inrAmount = amount;
+    usdAmount = amount * 0.013;
+  } else {
+    usdAmount = amount;
+    inrAmount = 75.6 * usdAmount;
+  }
+  return { inrAmount, usdAmount };
+}
 
 module.exports = {
   getCurrentDate,
@@ -104,4 +134,5 @@ module.exports = {
   weekWiseExpenditure,
   monthlyTransactions,
   expenditureCategoryWise,
+  getRatesInAllCurrency
 };

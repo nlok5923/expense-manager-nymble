@@ -8,4 +8,8 @@ const totalExpenseAmount = (expenses) => {
   return sum;
 };
 
-module.exports = { filterExpenses, totalExpenseAmount };
+const perWeekExpenseAmount = (expenses) => {
+  console.log(expenses);
+}
+
+module.exports = { filterExpenses, totalExpenseAmount, perWeekExpenseAmount };
