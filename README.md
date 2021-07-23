@@ -98,3 +98,12 @@ These are optional improvements that’ll help in boosting your submission score
 ## Hosting:
 - FE here: https://expense-manager-nymble.netlify.app/
 - BE here: https://aqueous-ridge-34051.herokuapp.com/
+
+## Test accounts (you can create new if you want):
+- email: user1@gmail.com
+- password: 123456
+
+- email: user2@gmail.com
+- password: 123456
+
+PS: please wait after 1-2 second after adding expense as it takes little time to update 😅
