@@ -94,3 +94,7 @@ These are optional improvements that’ll help in boosting your submission score
 ## Authentication:
 
 - Token(JWT) based authentication strategy has been used to authorize user, admin user and each request made by any user. 
+
+## Hosting:
+- FE here: https://expense-manager-nymble.netlify.app/
+- BE here: https://aqueous-ridge-34051.herokuapp.com/
