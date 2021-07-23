@@ -13,9 +13,11 @@ import {
 import Axios from "axios";
 import useToken from "../../Utils/customHooks/token";
 import { categories, currencies } from "../../Extras/item"
+import { useHistory } from "react-router-dom"
 
 const CardReactComponent = ({ expense, isAdmin, userId }) => {
   const [open, setOpen] = useState(false);
+  const history = useHistory();
   const [newExpense, setNewExpense] = useState({
     category: "",
     description: "",
@@ -171,7 +173,7 @@ const CardReactComponent = ({ expense, isAdmin, userId }) => {
                   clearable
                   options={currencies}
                   value={newExpense.currency}
-                  name="category"
+                  name="currency"
                   selection
                   onChange={(e, data) => handleCategorySelection(e, data)}
                 />

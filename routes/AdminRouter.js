@@ -6,6 +6,7 @@ var firebase = require("firebase/app");
 const app = require("../fire");
 const db = firebase.firestore(app);
 const { adminAuth } = require("../middleware/auth");
+const { getRatesInAllCurrency } = require("../utils/utils")
 
 const MAXAGE = 10 * 60 * 60 * 24;
 
@@ -75,21 +76,32 @@ router
 
   .put("/update/:id", adminAuth, async (req, res) => {
     try {
-      const { description, currency, amount, title, category } = req.body.newExpense;
-      console.log(req.body);
+      const { description, currency, amount, title, category, date, time } = req.body.newExpense;
+      let rates = getRatesInAllCurrency(currency, amount);
+      let usdAmt = rates.usdAmount;
+      let inrAmt = rates.inrAmount;
       const id = req.params.id;
       await db
         .collection("users")
         .doc(req.body.userId)
         .collection("expenses")
         .doc(id)
-        .set({ description, currency, amount, title, category })
-        console.log("dfdfd");
+        .set({   
+          title,
+          currency,
+          date,
+          time,
+          description,
+          category,
+          amount,
+          usdAmount: usdAmt,
+          inrAmount: inrAmt
+         })
       res.send("expense saved");
     } catch (error) {
       console.log(error.message);
       res.status(500).send(error.message);
     }
-  })
+  });
 
 module.exports = router;

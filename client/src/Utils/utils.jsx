@@ -8,4 +8,8 @@ const totalExpenseAmount = (expenses) => {
   return sum;
 };
 
-module.exports = { filterExpenses, totalExpenseAmount };
+const limitDescription = (description) => {
+  return description.slice(0,95) + "...";
+}
+
+module.exports = { filterExpenses, totalExpenseAmount, limitDescription };

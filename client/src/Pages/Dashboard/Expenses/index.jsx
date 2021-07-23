@@ -31,8 +31,8 @@ const Expenses = () => {
   const [expense, setExpense] = useState({
     title: "",
     description: "",
-    currency: "",
-    category: "",
+    currency: "INR",
+    category: "Other",
     amount: "",
   });
 
@@ -82,6 +82,7 @@ const Expenses = () => {
   const saveExpense = async () => {
     setOpen(false);
     try {
+      window.location.reload();
       await Axios.post(
         "http://localhost:5000/dashboard/add-expense",
         expense,
@@ -94,7 +95,6 @@ const Expenses = () => {
     } catch (error) {
       console.log(error.message);
     }
-    window.location.reload();
   };
 
   return (
