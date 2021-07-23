@@ -48,7 +48,7 @@ const Dashboard = () => {
           <Header as="h3">Your last 5 transactions are listed here 🤓 </Header>
           <Table heading={heading} data={filterExpenses(allTransactions)} />
           <Header as="h4">
-            Total expenditure: {totalExpenseAmount(allTransactions)}
+            Total expenditure: Rs {totalExpenseAmount(allTransactions)}
           </Header>
         </HamburgerMenu>
       )}

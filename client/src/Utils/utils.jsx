@@ -4,7 +4,7 @@ const filterExpenses = (expenses) => {
 
 const totalExpenseAmount = (expenses) => {
   let sum = 0;
-  expenses.map((expense) => (sum += +expense.data.amount));
+  expenses.map((expense) => (sum += +expense.data.inrAmount));
   return sum;
 };
 

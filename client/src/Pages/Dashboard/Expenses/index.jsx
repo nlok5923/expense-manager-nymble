@@ -82,7 +82,7 @@ const Expenses = () => {
   const saveExpense = async () => {
     setOpen(false);
     try {
-      window.location.reload();
+      setTimeout(() => window.location.reload(), 1500);
       await Axios.post(
         "http://localhost:5000/dashboard/add-expense",
         expense,
@@ -91,7 +91,7 @@ const Expenses = () => {
             Authorization: token,
           },
         }
-      );
+      )
     } catch (error) {
       console.log(error.message);
     }
