@@ -22,7 +22,7 @@ const Dashboard = () => {
   useEffect(() => {
     const token = getToken();
     try {
-      Axios.get("http://localhost:5000/dashboard/all-expenses", {
+      Axios.get("https://aqueous-ridge-34051.herokuapp.com/dashboard/all-expenses", {
         headers: {
           Authorization: token,
         },

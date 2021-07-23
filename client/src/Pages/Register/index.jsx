@@ -75,7 +75,7 @@ const SignupForm = () => {
     };
     try {
       const data = await Axios.post(
-        "http://localhost:5000/register",
+        "https://aqueous-ridge-34051.herokuapp.com/register",
         userData
       );
       const token = data.data.token;

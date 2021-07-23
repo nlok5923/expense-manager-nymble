@@ -27,7 +27,7 @@ const Dashboard = () => {
     const fetchExpenses = async () => {
       let response = "";
       try {
-        response = await Axios.get("http://localhost:5000/dashboard/reports", {
+        response = await Axios.get("https://aqueous-ridge-34051.herokuapp.com/dashboard/reports", {
           headers: {
             Authorization: token,
           },

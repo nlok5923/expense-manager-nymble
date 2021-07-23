@@ -7,7 +7,7 @@ const useAdminAuthStatus = () => {
   const getStatus = async () => {
     try {
       if (!token || token.length === 0) return false;
-      var response = await Axios.get("http://localhost:5000/check-admin-authorization", {
+      var response = await Axios.get("https://aqueous-ridge-34051.herokuapp.com/check-admin-authorization", {
         headers: {
           Authorization: token,
         },

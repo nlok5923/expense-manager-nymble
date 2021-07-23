@@ -61,7 +61,7 @@ const CardReactComponent = ({ expense, isAdmin, userId }) => {
     const token = getToken();
     try {
       if (isAdmin) {
-        const endpoint = "http://localhost:5000/admin/delete/" + expenseid;
+        const endpoint = "https://aqueous-ridge-34051.herokuapp.com/admin/delete/" + expenseid;
         await Axios.post(
           endpoint,
           { userId },
@@ -73,7 +73,7 @@ const CardReactComponent = ({ expense, isAdmin, userId }) => {
         );
         window.location.reload();
       } else {
-        const endpoint = "http://localhost:5000/dashboard/delete/" + expenseid;
+        const endpoint = "https://aqueous-ridge-34051.herokuapp.com/dashboard/delete/" + expenseid;
         await Axios.delete(endpoint, {
           headers: {
             Authorization: token,
@@ -90,7 +90,7 @@ const CardReactComponent = ({ expense, isAdmin, userId }) => {
     const token = getToken();
     try {
       if (isAdmin) {
-        const endpoint = "http://localhost:5000/admin/update/" + expenseid;
+        const endpoint = "https://aqueous-ridge-34051.herokuapp.com/admin/update/" + expenseid;
         await Axios.put(
           endpoint,
           { newExpense, userId },
@@ -102,7 +102,7 @@ const CardReactComponent = ({ expense, isAdmin, userId }) => {
         );
         window.location.reload();
       } else {
-        const endpoint = "http://localhost:5000/dashboard/update/" + expenseid;
+        const endpoint = "https://aqueous-ridge-34051.herokuapp.com/dashboard/update/" + expenseid;
         await Axios.put(endpoint, newExpense, {
           headers: {
             Authorization: token,

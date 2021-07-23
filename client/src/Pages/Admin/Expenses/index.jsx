@@ -35,7 +35,7 @@ const Expenses = () => {
     const fetchExpenses = async () => {
       try {
         const response = await Axios.get(
-          "http://localhost:5000/admin/all-expenses/" + params.id,
+          "https://aqueous-ridge-34051.herokuapp.com/admin/all-expenses/" + params.id,
           {
             headers: {
               Authorization: token,

@@ -52,7 +52,7 @@ const LoginForm = () => {
     };
     try {
       const response = await Axios.post(
-        "http://localhost:5000/admin/login",
+        "https://aqueous-ridge-34051.herokuapp.com/admin/login",
         userData
       );
       const token = response.data.token;

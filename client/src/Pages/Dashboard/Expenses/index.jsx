@@ -44,7 +44,7 @@ const Expenses = () => {
     const fetchExpenses = async () => {
       try {
         const response = await Axios.get(
-          "http://localhost:5000/dashboard/all-expenses",
+          "https://aqueous-ridge-34051.herokuapp.com/dashboard/all-expenses",
           {
             headers: {
               Authorization: token,
@@ -84,7 +84,7 @@ const Expenses = () => {
     try {
       setTimeout(() => window.location.reload(), 1500);
       await Axios.post(
-        "http://localhost:5000/dashboard/add-expense",
+        "https://aqueous-ridge-34051.herokuapp.com/dashboard/add-expense",
         expense,
         {
           headers: {
