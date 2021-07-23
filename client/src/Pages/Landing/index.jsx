@@ -30,7 +30,12 @@ const Landing = () => {
             <div className="frontpage__tagline">
               <div className="frontpage__tagline__text">
                 <Link to="/register">
-                  <Button size="huge" color="green" icon="rocket" content="Get Stared" />
+                  <Button
+                    size="huge"
+                    color="green"
+                    icon="rocket"
+                    content="Get Stared"
+                  />
                 </Link>
               </div>
             </div>

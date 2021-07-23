@@ -7,23 +7,9 @@ import HamburgerMenu from "../../../Components/HamburgerMenu/index";
 import Loader from "../../../Components/Loader/index";
 import Axios from "axios";
 import useToken from "../../../Utils/customHooks/token";
-import env from "react-dotenv"
+import { months, currencies } from "../../../Extras/item"
 
 const Dashboard = () => {
-  const months = [
-    "January",
-    "Fenruary",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "Ocotber",
-    "November",
-    "December",
-  ];
   const [expenditureReport, setExpenditureReport] = useState([]);
   const [category, setCategory] = useState([]);
   const { getStatus } = useAuthStatus();
@@ -34,11 +20,6 @@ const Dashboard = () => {
   );
   const currentYear = new Date().getFullYear();
   const [currentCurrency, setCurrentCurrency] = useState("INR");
-  const currencies = [
-    { key: 1, value: "USD", text: "USD" },
-    { key: 2, value: "INR", text: "INR" },
-  ];
-
   const { getToken } = useToken();
 
   useEffect(() => {
@@ -66,18 +47,20 @@ const Dashboard = () => {
 
   const expenditureCard = (expenditure, index) => {
     return (
-        <Card fluid key={index} >
+      <Card fluid key={index}>
         <Card.Content>
           <Card.Header>Week {index + 1} </Card.Header>
           <Card.Description>
-            {expenditure.start} | {currentMonth} | {currentYear} - 
+            {expenditure.start} | {currentMonth} | {currentYear} -
             {expenditure.end} | {currentMonth} | {currentYear}
           </Card.Description>
           <Card.Description>
-            {expenditure.total === -1
-              ? "No transaction this week"
-              : "Total: "
-            }{(expenditure.total !== -1) ? ((currentCurrency === "INR") ? expenditure.inrSum + " Rs" : expenditure.usdSum + " $") : null}
+            {expenditure.total === -1 ? "No transaction this week" : "Total: "}
+            {expenditure.total !== -1
+              ? currentCurrency === "INR"
+                ? expenditure.inrSum + " Rs"
+                : expenditure.usdSum + " $"
+              : null}
           </Card.Description>
         </Card.Content>
       </Card>
@@ -89,7 +72,11 @@ const Dashboard = () => {
       <Card
         fluid
         color="red"
-        header={(currentCurrency === "INR") ? item.name + " " + item.sum.inrSum + " Rs" : item.name + " " + item.sum.usdSum + " $"}
+        header={
+          currentCurrency === "INR"
+            ? item.name + " " + item.sum.inrSum + " Rs"
+            : item.name + " " + item.sum.usdSum + " $"
+        }
         key={index}
       />
     );
@@ -97,7 +84,6 @@ const Dashboard = () => {
 
   const handleCategorySelection = (e, data) => {
     setCurrentCurrency(data.value);
-  //  getRates();
   };
 
   return (

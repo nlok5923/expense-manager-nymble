@@ -3,7 +3,7 @@ var router = express.Router();
 var firebase = require("firebase/app");
 const app = require("../fire");
 const db = firebase.firestore(app);
-const { authRequired, adminAuth } = require("../middleware/auth");
+const { authRequired } = require("../middleware/auth");
 const {
   getCurrentDate,
   getCurrentTime,
@@ -29,6 +29,7 @@ router
     console.log(rates)
     let usdAmount = rates.usdAmount;
     let inrAmount = rates.inrAmount;
+    let amt = Number(amount);
     try {
       db.collection("users")
         .doc(req.token)
@@ -40,7 +41,7 @@ router
           time,
           description,
           category,
-          amount,
+          amount: amt,
           usdAmount,
           inrAmount
         })
@@ -84,8 +85,11 @@ router
 
   .put("/update/:id", authRequired, async (req, res) => {
     try {
-      const { description, currency, amount, title, category } = req.body;
+      const { description, currency, amount, title, category, date, time } = req.body;
       console.log(req.body);
+      let rates = getRatesInAllCurrency(currency, amount);
+      let usdAmt = rates.usdAmount;
+      let inrAmt = rates.inrAmount;
       const id = req.params.id;
       const token = req.token;
       await db
@@ -93,7 +97,17 @@ router
         .doc(token)
         .collection("expenses")
         .doc(id)
-        .set({ description, currency, amount, title, category });
+        .set({   
+          title,
+          currency,
+          date,
+          time,
+          description,
+          category,
+          amount,
+          usdAmount: usdAmt,
+          inrAmount: inrAmt
+        });
       res.send("expense saved");
     } catch (error) {
       console.log(error.message);

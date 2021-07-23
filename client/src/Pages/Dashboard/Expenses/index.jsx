@@ -16,6 +16,7 @@ import "./Expenses.scss";
 import HamburgerMenu from "../../../Components/HamburgerMenu/index";
 import Axios from "axios";
 import useToken from "../../../Utils/customHooks/token";
+import { categories, currencies } from "../../../Extras/item"
 
 const Expenses = () => {
   const { getToken } = useToken();
@@ -95,19 +96,6 @@ const Expenses = () => {
     }
     window.location.reload();
   };
-
-  const categories = [
-    { key: 1, value: "Home", text: "Home" },
-    { key: 2, value: "Food", text: "Food" },
-    { key: 3, value: "Shopping", text: "Shopping" },
-    { key: 4, value: "Fuel", text: "Fuel" },
-    { key: 5, value: "Other", text: "Other" },
-  ];
-
-  const currencies = [
-    { key: 1, value: "USD", text: "USD" },
-    { key: 2, value: "INR", text: "INR" },
-  ];
 
   return (
     <>

@@ -1,16 +1,21 @@
 import { React, useState, useEffect } from "react";
-import {
-  Header,
-  Container,
-  Dropdown,
-} from "semantic-ui-react";
+import { Header, Container, Dropdown } from "semantic-ui-react";
 import Loader from "../../../Components/Loader/index";
 import Card from "../../../Components/Card/index";
 import { Redirect, useParams } from "react-router-dom";
 import useAdminAuthStatus from "../../../Utils/customHooks/admin";
 import Axios from "axios";
 import useToken from "../../../Utils/customHooks/token";
-import AdminNavigation from "../../../Components/AdminNavigation/index"
+import AdminNavigation from "../../../Components/AdminNavigation/index";
+import { categories } from "../../../Extras/item"
+
+// const categories = [
+//   { key: 1, value: "Home", text: "Home" },
+//   { key: 2, value: "Food", text: "Food" },
+//   { key: 3, value: "Shopping", text: "Shopping" },
+//   { key: 4, value: "Fuel", text: "Fuel" },
+//   { key: 5, value: "Other", text: "Other" },
+// ];
 
 const Expenses = () => {
   const { getToken } = useToken();
@@ -27,7 +32,6 @@ const Expenses = () => {
   };
 
   useEffect(() => {
-      
     const fetchExpenses = async () => {
       try {
         const response = await Axios.get(
@@ -50,21 +54,14 @@ const Expenses = () => {
     fetchExpenses();
   }, [token]);
 
-  const categories = [
-    { key: 1, value: "Home", text: "Home" },
-    { key: 2, value: "Food", text: "Food" },
-    { key: 3, value: "Shopping", text: "Shopping" },
-    { key: 4, value: "Fuel", text: "Fuel" },
-    { key: 5, value: "Other", text: "Other" },
-  ];
   return (
     <>
       {isLoading && <Loader />}
       {!isLoading && !auth && <Redirect to="/login" />}
       {!isLoading && auth && (
-          <>
-            <AdminNavigation />
-            <Container>
+        <>
+          <AdminNavigation />
+          <Container>
             <Header as="h3">Edit your transactions here 🤓 </Header>
             <Dropdown
               floated="right"
@@ -81,11 +78,17 @@ const Expenses = () => {
               })
               .map((expense, index) => {
                 return (
-                  <Card key={index} id={selectedCategory} expense={expense} isAdmin={true} userId={params.id} />
+                  <Card
+                    key={index}
+                    id={selectedCategory}
+                    expense={expense}
+                    isAdmin={true}
+                    userId={params.id}
+                  />
                 );
               })}
-            </Container>
-          </>
+          </Container>
+        </>
       )}
     </>
   );

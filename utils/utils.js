@@ -50,6 +50,7 @@ const getWeeksInMonth = (year, month) => {
 
 const weekWiseExpenditure = (weeksInMonths, transactions) => {
   let perWeekExpenditure = [];
+  console.log(transactions);
   weeksInMonths.map((week) => {
     let startDate = week.start;
     let endDate = week.end;
@@ -75,7 +76,7 @@ const weekWiseExpenditure = (weeksInMonths, transactions) => {
       perWeekExpenditure.push({ total: -1, start: startDate, end: endDate, inrSum: inrSum, usdSum:usdSum }); 
     }
   });
-  console.log(perWeekExpenditure);
+  // console.log(perWeekExpenditure);
   return perWeekExpenditure;
 };
 
@@ -91,6 +92,7 @@ const monthlyTransactions = (expenses) => {
 
 const expenditureCategoryWise = (expenses) => {
   let category = new Map();
+  console.log(expenses);
   category.set("Food", {inrSum: 0, usdSum: 0});
   category.set("Shopping", {inrSum: 0, usdSum: 0});
   category.set("Other", {inrSum: 0, usdSum: 0});
@@ -122,7 +124,7 @@ const getRatesInAllCurrency = (currentCurrency, amount) => {
     usdAmount = amount * 0.013;
   } else {
     usdAmount = amount;
-    inrAmount = 75.6 * usdAmount;
+    inrAmount = 75.6 * amount;
   }
   return { inrAmount, usdAmount };
 }

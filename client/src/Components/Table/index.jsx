@@ -1,6 +1,6 @@
 import React from "react";
 import "./Table.scss";
-// "Date", "Time", "Amount", "Currency", "Description", "Category"
+
 const Table = ({ data, heading }) => {
   return (
     <div className="table-container">
