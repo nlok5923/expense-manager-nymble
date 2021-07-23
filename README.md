@@ -42,3 +42,55 @@ These are optional improvements that’ll help in boosting your submission score
 ##### Legend 
 - [x] : requirement fulfilled
 - [ ] : not implemented
+
+## Sneak Peak: 
+- App Landing page
+<img src="images/landing.png" alt="landing" />
+
+- user login page
+<img src="images/user-login.png" alt="landing" />
+
+- user register page
+<img src="images/user-register.png" alt="landing" />
+
+- Once user logged in he is redirected to dashboard which has a log of his last 5 transations 
+<img src="images/user-dashboard.png" alt="landing" />
+
+- Here use can add/edit/delete expenses also user can filter out the expenses. And to navigate to different pages he can use the burgermenu in left.
+<img src="images/user-expenses.png" alt="landing" />
+
+- This page displays weekly expenditure report of current month PS: user can choose currency in which he needs report.
+<img src="images/user-report.png" alt="landing" />
+
+- Login page for admin
+<img src="images/admin-login.png" alt="landing" />
+
+- Once admin logged in he can see the list of all user over his dashboard
+<img src="images/admin-dashboard.png" alt="landing" />
+
+- Admin can edit/delete the expense of any user through this page
+<img src="images/admin-user-expense.png" alt="landing" />
+
+## Routing structure:
+
+### Routes accessible by normal users:
+
+- `[POST] /login`: utilized for authenticating user.
+- `[POST] /register`: utilized for registering user.
+- `[POST] /dashboard/add-expense`: utilized for adding transation by user.
+- `[GET] /dashboard/all-expenses`: utilized for accessing all transations added by user.
+- `[DELETE] /dashboard/delete/:id`: utilized to delete a particular transaction from database.
+- `[PUT] /dashboard/update/:id`: utilized for updating any transaction.
+- `[GET] /dashboard/reports`: utilized for accessing particular user report.
+
+### Routes accessible only by admin:
+
+- `[POST] /admin/login`: utilized for authenticating admin user.
+- `[GET] /admin/all-users`: utilized for accessing all users via admin user.
+- `[GET] /admin/all-expenses/:id`: utilized by admin user to access all transaction of a any user.
+- `[POST] /admin/delete/:id`: utilized by admin user to delete any transaction of any user.
+- `[PUT] /admin/update/:id`: utilized by admin user to update any transaction of any user.
+
+## Authentication:
+
+- Token(JWT) based authentication strategy has been used to authorize user, admin user and each request made by any user. 
