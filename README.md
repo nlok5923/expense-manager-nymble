@@ -71,6 +71,12 @@ These are optional improvements that’ll help in boosting your submission score
 - Admin can edit/delete the expense of any user through this page
 <img src="images/admin-user-expense.png" alt="landing" />
 
+- Add expense interface for both admin and normal user
+<img src="images/add.png" alt="add" />
+
+- Editing expense interface for both admin and normal user
+<img src="images/edit.png" alt="add" />
+
 ## Routing structure:
 
 ### Routes accessible by normal users:
