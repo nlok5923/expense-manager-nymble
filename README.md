@@ -40,8 +40,8 @@ These are optional improvements that’ll help in boosting your submission score
     3. Admin users can edit or delete the expense of all users.
     
 ##### Legend 
-- [x] : requirement fulfilled
-- [ ] : not implemented
+- [x] : Feature implemented
+- [ ] : Feature not implemented
 
 ## Sneak Peak: 
 - App Landing page
@@ -94,3 +94,17 @@ These are optional improvements that’ll help in boosting your submission score
 ## Authentication:
 
 - Token(JWT) based authentication strategy has been used to authorize user, admin user and each request made by any user. 
+
+## Hosting:
+- FE here: https://expense-manager-nymble.netlify.app/
+- BE here: https://aqueous-ridge-34051.herokuapp.com/
+
+## Test accounts (you can create new if you want):
+- email: user1@gmail.com
+- password: 123456
+
+- email: user2@gmail.com
+- password: 123456
+
+
+PS: please wait 1-2 second after adding expense as it takes little time to update 😅
